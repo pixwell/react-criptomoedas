@@ -1,75 +1,62 @@
-# React + TypeScript + Vite
+# Criptomoedas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web para consulta e visualização de informações sobre criptomoedas, desenvolvida com React, TypeScript e Vite. O projeto foi desenvolvido como parte da **Formação em Desenvolvimento Web Fullstack**, com foco na aplicação prática de conceitos de React, TypeScript, consumo de API, gerenciamento de estado, roteamento e organização de código.
 
-Currently, two official plugins are available:
+## Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* React
+* TypeScript
+* Vite
+* React Router
+* CoinCap API
 
-## React Compiler
+## Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Listar criptomoedas
+* Exibir informações das criptomoedas:
+  * Ícone
+  * Nome
+  * Símbolo
+  * Market Cap
+  * Preço
+  * Volume
+  * Variação nas últimas 24 horas
+* Formatar os valores exibidos
+* Indicar visualmente a variação positiva ou negativa das criptomoedas
+* Pesquisar criptomoedas
+* Filtrar resultados em tempo real
+* Carregar mais criptomoedas
+* Acessar a página de detalhes de uma criptomoeda
+* Interface responsiva
+* Tratamento de estados vazios
 
-## Expanding the ESLint configuration
+## Regras de negócio
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* Os dados das criptomoedas são obtidos através da CoinCap API.
+* A busca filtra os resultados conforme o texto informado pelo usuário.
+* Quando não houver criptomoedas correspondentes à busca, a aplicação apresenta um estado vazio.
+* O nome da criptomoeda permite acessar sua página de detalhes.
+* Os valores numéricos são formatados antes de serem apresentados ao usuário.
+* A variação de preço das últimas 24 horas possui indicação visual de acordo com seu valor.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Estados vazios
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Quando não houver criptomoedas para exibir, a aplicação apresenta uma mensagem informando que nenhum resultado foi encontrado.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Instalação
 
+```bash
+git clone https://github.com/pixwell/criptomoeda.git
+
+cd criptomoeda
+
+npm install
+
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Deploy
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Projeto será publicado na Vercel.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+**Demo:** Em breve
