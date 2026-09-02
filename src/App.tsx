@@ -1,10 +1,12 @@
+import { createBrowserRouter } from "react-router";
 
-function App() {
-  return (
-    <div className="container">
-      <h1>Hello Word</h1>
-    </div>
-  )
-}
+const router = createBrowserRouter([
+  {
+    // { 
+    //   index: true, 
+    //   Component: Home,
+    // }
+  }
+])
 
-export default App
+export {router}
