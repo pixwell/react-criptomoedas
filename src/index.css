@@ -1,15 +1,21 @@
 @import "tailwindcss";
 
-
 /* Classes globais ============================== */
 @layer base {
+
+  body{
+    @apply
+    bg-zinc-900
+    text-zinc-200
+  }
+
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply font-bold mb-3;
+    @apply font-bold text-zinc-200 mb-3;
   }
 
   /* Transicao suave em todos os links do site */
@@ -24,4 +30,12 @@
 @layer components {}
 
 /* Classes customizados pontuais ================== */
-@layer utilities {}
+@layer utilities {
+  .container { 
+    @apply max-w-6xl mx-auto px-4;
+  }
+
+  .img-fluid{
+    @apply max-w-full h-auto;
+  }
+}
