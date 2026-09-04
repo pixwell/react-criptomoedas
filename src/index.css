@@ -27,7 +27,72 @@
 }
 
 /* Componentes de UI ============================== */
-@layer components {}
+@layer components {
+  .coin-responsive-table{
+    @apply
+    w-full
+    border-separate
+    border-spacing-0
+    md:border-spacing-y-3
+  }
+  .coin-responsive-table thead{
+    @apply
+    hidden md:table-header-group
+  }
+  
+  .coin-responsive-table th{
+    @apply
+    w-1/5
+    text-left
+    p-2
+
+    md:text-center
+  }
+
+  .coin-responsive-table tbody tr{
+    @apply
+    block
+    mb-3
+    pb-2
+
+    bg-zinc-800
+    rounded-lg
+
+    md:table-row
+    md:mb-0
+    md:pb-0
+  }
+
+  .coin-responsive-table tbody td{
+    @apply
+    flex 
+    justify-between 
+    px-2 
+    py-2 
+    
+    before:content-[attr(data-label)] 
+    before:font-bold
+    
+    md:table-cell 
+    md:before:content-none 
+    md:py-2
+    
+  }
+  .coin-responsive-table tbody td:first-child{
+    @apply
+    rounded-l-lg
+  }
+  .coin-responsive-table tbody td:last-child{
+    @apply
+    rounded-r-lg
+  }
+
+  .coin-responsive-table tbody td:not(:first-child){
+    @apply
+    text-center
+  }
+
+}
 
 /* Classes customizados pontuais ================== */
 @layer utilities {
