@@ -28,6 +28,19 @@
 
 /* Componentes de UI ============================== */
 @layer components {
+  .btn{
+    @apply 
+    text-sm
+    px-4 
+    py-2 
+    inline-block 
+    rounded-lg 
+
+    text-center 
+    hover:scale-105 
+    cursor-pointer;
+  }
+
   .coin-responsive-table{
     @apply
     w-full
