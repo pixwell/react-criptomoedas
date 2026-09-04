@@ -32,6 +32,8 @@ export function Home() {
         </tbody>
       </table>
 
+      <button type="button" className="btn bg-blue-700 hover:bg-blue-600 mx-auto my-3">Carregar mais ...</button>
+
     </div>
   )
 }
