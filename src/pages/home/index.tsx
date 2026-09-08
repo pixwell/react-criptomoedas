@@ -1,6 +1,21 @@
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { getCoins } from "../../services/coinCapApi";
+import type { Coin } from "../../types/coin";
+
 
 export function Home() {
+  const [coins, setCoins] = useState<Coin[]>([])
+
+  async function listCoins(){
+    const lista = await getCoins()
+    setCoins(lista.data)
+  }
+
+  useEffect(() => {
+    listCoins()
+  }, [])
+  
   return (
     <div className="container">
 
@@ -22,17 +37,28 @@ export function Home() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td data-label="Moeda">Bitcoin | BTC</td>
-            <td data-label="Valor de Mercado">$1.3T</td>
-            <td data-label="Preço">$65.000,67</td>
-            <td data-label="Volume">$17B</td>
-            <td data-label="Mudança 24h">0.027</td>
-          </tr>
+          {coins.length > 0 ? (
+            coins.map( moeda => (
+              <tr key={moeda.id}>
+                <td data-label="Moeda">{moeda.name}</td>
+                <td data-label="Valor de Mercado">{moeda.marketCapUsd}</td>
+                <td data-label="Preço">{moeda.priceUsd}</td>
+                <td data-label="Volume">{moeda.volumeUsd24Hr}</td>
+                <td data-label="Mudança 24h">{moeda.changePercent24Hr}</td>
+              </tr>
+              )
+            )
+          ) : (
+            <tr>
+              <td colSpan={5} className="text-center">Nenhuma moeda encontrada.</td>
+            </tr>
+          )}
         </tbody>
       </table>
 
-      <button type="button" className="btn bg-blue-700 hover:bg-blue-600 mx-auto my-3">Carregar mais ...</button>
+      {coins.length > 0 && (
+        <button type="button" className="btn bg-blue-700 hover:bg-blue-600 mx-auto my-3">Carregar mais ...</button>
+      )}
 
     </div>
   )
