@@ -1,24 +1,4 @@
-interface Coin{
-  id: string;
-  rank: string;
-  symbol: string;
-  name: string;
-  supply: string;
-  maxSupply: string;
-  marketCapUsd: string;
-  volumeUsd24Hr: string;
-  priceUsd: string;
-  changePercent24Hr: string;
-  vwap24Hr: string;
-  explorer: string;
-  status: string;
-  frozenAt: number;
-}
-
-interface CoinResponse{
-  timestamp: number;
-  data: Coin[]
-}
+import type { CoinResponse } from "../types/coin";
 
 function getApiUrl(endpoint: string = 'assets', limit: number = 10, offset: number = 0): string{
   return `https://rest.coincap.io/v3/${endpoint}?limit=${limit}&offset=${offset}&apiKey=${import.meta.env.VITE_COINCAP_API_KEY}`
