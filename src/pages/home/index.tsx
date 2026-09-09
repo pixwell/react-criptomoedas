@@ -3,6 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import { getCoins } from "../../services/coinCapApi";
 import type { Coin } from "../../types/coin";
 import { LoadingSpinner } from "../../components/loadingSpinner";
+import toast from "react-hot-toast";
 
 export function Home() {
   const [coins, setCoins] = useState<Coin[]>([])
@@ -17,7 +18,7 @@ export function Home() {
       const lista = await getCoins()
       setCoins(lista.data)
     } catch (error) {
-      //Erro
+      toast.error(`Erro ao carregar lista: ${error}`)
     } finally {
       //Loading desativado
       setPageLoading(false)
