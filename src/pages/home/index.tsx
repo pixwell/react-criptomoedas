@@ -6,22 +6,32 @@ import { LoadingSpinner } from "../../components/loadingSpinner";
 import toast from "react-hot-toast";
 
 export function Home() {
-  const [coins, setCoins] = useState<Coin[]>([])
-  const [pageLoading, setPageLoading] = useState(false)
+  const [coins, setCoins] = useState<Coin[]>([]);
+  const [pageLoading, setPageLoading] = useState(false);
 
   async function listCoins() {
 
     try {
       //Loading ativado
-      setPageLoading(true)
+      setPageLoading(true);
       //Buscando dados
-      const lista = await getCoins()
+      const lista = await getCoins();
       setCoins(lista.data)
     } catch (error) {
-      toast.error(`Erro ao carregar lista: ${error}`)
+
+      let msg: string;
+
+      if(error instanceof Error){
+        msg = `Erro ao carregar lista: ${error.message}`;
+      } else {
+        msg = 'Erro ao carregar lista';
+      }
+
+      toast.error(msg)
+
     } finally {
       //Loading desativado
-      setPageLoading(false)
+      setPageLoading(false);
     }
   }
 
