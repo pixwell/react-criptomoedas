@@ -6,10 +6,10 @@ function getApiUrl(endpoint: string = 'assets', limit: number = ITEMS_PER_PAGE, 
   return `https://rest.coincap.io/v3/${endpoint}?limit=${limit}&offset=${offset}&apiKey=${import.meta.env.VITE_COINCAP_API_KEY}`;
 }
 
-export async function getCoins(offset: number = 0): Promise<CoinResponse>{
+export async function getCoins(offset: number = 0, signal?: AbortSignal): Promise<CoinResponse>{
   try {
     //Requisicao inicial
-    const response = await fetch(getApiUrl('assets', ITEMS_PER_PAGE, offset));
+    const response = await fetch(getApiUrl('assets', ITEMS_PER_PAGE, offset), {signal});
     //Trata o erro 404, que nao e tratado nativamente
     if (!response.ok) {
       throw new Error(`Erro HTTP: ${response.status}`);
