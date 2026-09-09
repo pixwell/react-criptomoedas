@@ -2,20 +2,36 @@ import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { getCoins } from "../../services/coinCapApi";
 import type { Coin } from "../../types/coin";
-
+import { LoadingSpinner } from "../../components/loadingSpinner";
 
 export function Home() {
   const [coins, setCoins] = useState<Coin[]>([])
+  const [pageLoading, setPageLoading] = useState(false)
 
-  async function listCoins(){
-    const lista = await getCoins()
-    setCoins(lista.data)
+  async function listCoins() {
+
+    try {
+      //Loading ativado
+      setPageLoading(true)
+      //Buscando dados
+      const lista = await getCoins()
+      setCoins(lista.data)
+    } catch (error) {
+      //Erro
+    } finally {
+      //Loading desativado
+      setPageLoading(false)
+    }
   }
 
   useEffect(() => {
     listCoins()
   }, [])
-  
+
+  if (pageLoading) {
+    return <LoadingSpinner />
+  }
+
   return (
     <div className="container">
 
@@ -38,7 +54,7 @@ export function Home() {
         </thead>
         <tbody>
           {coins.length > 0 ? (
-            coins.map( moeda => (
+            coins.map(moeda => (
               <tr key={moeda.id}>
                 <td data-label="Moeda">{moeda.name}</td>
                 <td data-label="Valor de Mercado">{moeda.marketCapUsd}</td>
@@ -46,7 +62,7 @@ export function Home() {
                 <td data-label="Volume">{moeda.volumeUsd24Hr}</td>
                 <td data-label="Mudança 24h">{moeda.changePercent24Hr}</td>
               </tr>
-              )
+            )
             )
           ) : (
             <tr>
