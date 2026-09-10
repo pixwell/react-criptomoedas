@@ -28,44 +28,44 @@ export function Home() {
     return list;
   }
 
-  //Orquestrador
-  async function listCoins(signal?: AbortSignal) {
-
-    try {
-      //1. Ativa o Loading
-      setPageLoading(true);
-
-      //2. Busca os dados
-      const lista = await getCoins(offset, signal);
-
-      //3. Formata para a apresentacao
-      const formattedList = formatCoins(lista.data);
-
-      //4. Atualiza para o estado
-      setCoins( prevCoins => [...prevCoins, ...formattedList]);
-
-    } catch (error) {
-
-      //filtrando o erro do AbortController
-      if (error instanceof Error && error.name !== 'AbortError') {
-        //So exibe o toast se nao for do AbortController
-        toast.error(`Erro ao carregar lista: ${error.message}`);
-      }
-
-    } finally {
-      //Correcao no loading por conta do efeito colateral do AbortController
-      if (!signal?.aborted) {
-        //Desativa o Loading
-        setPageLoading(false);
-      }
-    }
-  }
-
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
 
-    listCoins(signal);
+    //Orquestrador
+    async function listCoins() {
+
+      try {
+        //1. Ativa o Loading
+        setPageLoading(true);
+
+        //2. Busca os dados
+        const lista = await getCoins(offset, signal);
+
+        //3. Formata para a apresentacao
+        const formattedList = formatCoins(lista.data);
+
+        //4. Atualiza para o estado
+        setCoins( prevCoins => [...prevCoins, ...formattedList]);
+
+      } catch (error) {
+
+        //filtrando o erro do AbortController
+        if (error instanceof Error && error.name !== 'AbortError') {
+          //So exibe o toast se nao for do AbortController
+          toast.error(`Erro ao carregar lista: ${error.message}`);
+        }
+
+      } finally {
+        //Correcao no loading por conta do efeito colateral do AbortController
+        if (!signal?.aborted) {
+          //Desativa o Loading
+          setPageLoading(false);
+        }
+      }
+    }
+
+    listCoins();
 
     return () => controller.abort()
   }, [offset])
