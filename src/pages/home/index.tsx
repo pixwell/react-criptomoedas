@@ -1,36 +1,61 @@
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { ITEMS_PER_PAGE, getCoins } from "../../services/coinCapApi";
-import type { Coin } from "../../types/coin";
 import toast from "react-hot-toast";
 import svgSpinner from '../../assets/spinner.svg'
+import { ITEMS_PER_PAGE, getCoins } from "../../services/coinCapApi";
+import type { Coin, FormattedCoin } from "../../types/coin";
+import { formatPrice, formatPriceCompact } from "../../utils/formatters";
 
 export function Home() {
-  const [coins, setCoins] = useState<Coin[]>([]);
+  const [coins, setCoins] = useState<FormattedCoin[]>([]);
   const [pageLoading, setPageLoading] = useState(false);
   const [offset, setOffset] = useState(0);
-  
+
+  //Formata os valores da moeda para a interface
+  function formatCoins(coinList: Coin[]): FormattedCoin[]{
+    const list = coinList.map( item => {
+      const {marketCapUsd, volumeUsd24Hr, priceUsd, changePercent24Hr, ...outrasProps} = item;
+
+      return {
+        ...outrasProps, //id, name e symbol
+        marketCapUsd: formatPriceCompact(Number(marketCapUsd)), 
+        volumeUsd24Hr: formatPriceCompact(Number(volumeUsd24Hr)), 
+        priceUsd: formatPrice(Number(priceUsd)), 
+        changePercent24Hr: Number(changePercent24Hr).toFixed(3),
+      }
+    })
+
+    return list;
+  }
+
+  //Orquestrador
   async function listCoins(signal?: AbortSignal) {
 
     try {
-      //Loading ativado
+      //1. Ativa o Loading
       setPageLoading(true);
 
-      //Buscando dados
+      //2. Busca os dados
       const lista = await getCoins(offset, signal);
-      setCoins( prevCoins => [...prevCoins, ...lista.data]);
+
+      //3. Formata para a apresentacao
+      const formattedList = formatCoins(lista.data);
+
+      //4. Atualiza para o estado
+      setCoins( prevCoins => [...prevCoins, ...formattedList]);
 
     } catch (error) {
 
       //filtrando o erro do AbortController
       if (error instanceof Error && error.name !== 'AbortError') {
+        //So exibe o toast se nao for do AbortController
         toast.error(`Erro ao carregar lista: ${error.message}`);
       }
 
     } finally {
       //Correcao no loading por conta do efeito colateral do AbortController
       if (!signal?.aborted) {
-        //Loading desativado
+        //Desativa o Loading
         setPageLoading(false);
       }
     }
