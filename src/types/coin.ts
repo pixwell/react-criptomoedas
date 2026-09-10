@@ -15,6 +15,16 @@ export interface Coin{
   frozenAt: number;
 }
 
+export interface FormattedCoin{
+  id: string;
+  symbol: string;
+  name: string;
+  marketCapUsd: string;
+  volumeUsd24Hr: string;
+  priceUsd: string;
+  changePercent24Hr: string;
+}
+
 export interface CoinResponse{
   timestamp: number;
   data: Coin[]
