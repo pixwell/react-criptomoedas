@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { getCoins } from "../../services/coinCapApi";
+import { ITEMS_PER_PAGE, getCoins } from "../../services/coinCapApi";
 import type { Coin } from "../../types/coin";
 import { LoadingSpinner } from "../../components/loadingSpinner";
 import toast from "react-hot-toast";
@@ -8,36 +8,42 @@ import toast from "react-hot-toast";
 export function Home() {
   const [coins, setCoins] = useState<Coin[]>([]);
   const [pageLoading, setPageLoading] = useState(false);
-
-  async function listCoins() {
+  const [offset, setOffset] = useState(0);
+  
+  async function listCoins(signal?: AbortSignal) {
 
     try {
       //Loading ativado
       setPageLoading(true);
+
       //Buscando dados
-      const lista = await getCoins();
-      setCoins(lista.data)
+      const lista = await getCoins(offset, signal);
+      setCoins( prevCoins => [...prevCoins, ...lista.data]);
+
     } catch (error) {
 
-      let msg: string;
-
-      if(error instanceof Error){
-        msg = `Erro ao carregar lista: ${error.message}`;
-      } else {
-        msg = 'Erro ao carregar lista';
+      //filtrando o erro do AbortController
+      if (error instanceof Error && error.name !== 'AbortError') {
+        toast.error(`Erro ao carregar lista: ${error.message}`);
       }
 
-      toast.error(msg)
-
     } finally {
-      //Loading desativado
-      setPageLoading(false);
+      //Correcao no loading por conta do efeito colateral do AbortController
+      if (!signal?.aborted) {
+        //Loading desativado
+        setPageLoading(false);
+      }
     }
   }
 
   useEffect(() => {
-    listCoins()
-  }, [])
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    listCoins(signal);
+
+    return () => controller.abort()
+  }, [offset])
 
   if (pageLoading) {
     return <LoadingSpinner />
@@ -84,7 +90,13 @@ export function Home() {
       </table>
 
       {coins.length > 0 && (
-        <button type="button" className="btn bg-blue-700 hover:bg-blue-600 mx-auto my-3">Carregar mais ...</button>
+        <button 
+        type="button" 
+        className="btn bg-blue-700 hover:bg-blue-600 mx-auto my-3" 
+        onClick={() => setOffset(prevOffset => prevOffset + ITEMS_PER_PAGE)}
+        >
+          Carregar mais ...
+        </button>
       )}
 
     </div>
