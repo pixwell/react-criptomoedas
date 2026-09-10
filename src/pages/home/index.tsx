@@ -45,10 +45,6 @@ export function Home() {
     return () => controller.abort()
   }, [offset])
 
-  // if (pageLoading) {
-  //   return <LoadingSpinner />
-  // }
-
   return (
     <div className="container">
 
