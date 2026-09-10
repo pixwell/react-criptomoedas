@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { ITEMS_PER_PAGE, getCoins } from "../../services/coinCapApi";
 import type { Coin } from "../../types/coin";
-import { LoadingSpinner } from "../../components/loadingSpinner";
 import toast from "react-hot-toast";
+import svgSpinner from '../../assets/spinner.svg'
 
 export function Home() {
   const [coins, setCoins] = useState<Coin[]>([]);
@@ -45,9 +45,9 @@ export function Home() {
     return () => controller.abort()
   }, [offset])
 
-  if (pageLoading) {
-    return <LoadingSpinner />
-  }
+  // if (pageLoading) {
+  //   return <LoadingSpinner />
+  // }
 
   return (
     <div className="container">
@@ -92,10 +92,11 @@ export function Home() {
       {coins.length > 0 && (
         <button 
         type="button" 
-        className="btn bg-blue-700 hover:bg-blue-600 mx-auto my-3" 
+        className="btn bg-blue-700 hover:bg-blue-600 mx-auto mt-4 mb-8" 
         onClick={() => setOffset(prevOffset => prevOffset + ITEMS_PER_PAGE)}
-        >
-          Carregar mais ...
+        disabled={pageLoading}
+        >          
+          {pageLoading ? (<img width="18" height="18" src={svgSpinner} alt="Carregando" role="status" aria-live="polite" />) : ('Carregar mais ...')}
         </button>
       )}
 
