@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import toast from "react-hot-toast";
-import svgSpinner from '../../assets/spinner.svg'
+import svgSpinner from '../../assets/spinner.svg';
+import defaultCoinIcon from '../../../public/icon-default.png';
 import { ITEMS_PER_PAGE, getCoins } from "../../services/coinCapApi";
 import type { Coin, FormattedCoin } from "../../types/coin";
 import { formatPrice, formatPriceCompact } from "../../utils/formatters";
@@ -94,11 +95,23 @@ export function Home() {
           {coins.length > 0 ? (
             coins.map(moeda => (
               <tr key={moeda.id}>
-                <td data-label="Moeda">{moeda.name}</td>
+                <td data-label="Moeda" className="flex items-center justify-start gap-2">
+                  <img 
+                    className="img-fluid rounded-full size-8" 
+                    src={`https://assets.coincap.io/assets/icons/${moeda.symbol.toLowerCase()}@2x.png`} 
+                    alt="Logo da Moeda" 
+                    onError={(e)=>{
+                      e.currentTarget.src = defaultCoinIcon
+                    }}
+                  />
+                  {moeda.name}
+                </td>
                 <td data-label="Valor de Mercado">{moeda.marketCapUsd}</td>
                 <td data-label="Preço">{moeda.priceUsd}</td>
                 <td data-label="Volume">{moeda.volumeUsd24Hr}</td>
-                <td data-label="Mudança 24h">{moeda.changePercent24Hr}</td>
+                <td data-label="Mudança 24h" className={Number(moeda.changePercent24Hr) > 0 ? 'text-green-500' : 'text-red-500' }>
+                  {moeda.changePercent24Hr}
+                </td>
               </tr>
             )
             )
