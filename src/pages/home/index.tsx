@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import toast from "react-hot-toast";
 import svgSpinner from '../../assets/spinner.svg';
-import defaultCoinIcon from '../../../public/icon-default.png';
 import { ITEMS_PER_PAGE, getCoins } from "../../services/coinCapApi";
 import type { Coin, FormattedCoin } from "../../types/coin";
 import { formatPrice, formatPriceCompact } from "../../utils/formatters";
@@ -101,7 +100,7 @@ export function Home() {
                     src={`https://assets.coincap.io/assets/icons/${moeda.symbol.toLowerCase()}@2x.png`} 
                     alt="Logo da Moeda" 
                     onError={(e)=>{
-                      e.currentTarget.src = defaultCoinIcon
+                      e.currentTarget.src = '/icon-default.png'
                     }}
                   />
                   {moeda.name}
