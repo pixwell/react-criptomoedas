@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { coinPath } from "../../App";
 import { FaSearch } from "react-icons/fa";
 import toast from "react-hot-toast";
 import svgSpinner from '../../assets/spinner.svg';
 import { ITEMS_PER_PAGE, getCoins } from "../../services/coinCapApi";
 import type { Coin, FormattedCoin } from "../../types/coin";
 import { formatPrice, formatPriceCompact } from "../../utils/formatters";
+import { Link } from "react-router";
 
 export function Home() {
   const [coins, setCoins] = useState<FormattedCoin[]>([]);
@@ -94,16 +96,18 @@ export function Home() {
           {coins.length > 0 ? (
             coins.map(moeda => (
               <tr key={moeda.id}>
-                <td data-label="Moeda" className="flex items-center justify-start gap-2">
-                  <img 
-                    className="img-fluid rounded-full size-8" 
-                    src={`https://assets.coincap.io/assets/icons/${moeda.symbol.toLowerCase()}@2x.png`} 
-                    alt="Logo da Moeda" 
-                    onError={(e)=>{
-                      e.currentTarget.src = '/icon-default.png'
-                    }}
-                  />
-                  {moeda.name}
+                <td data-label="Moeda">
+                  <Link to={`${coinPath}/${moeda.id}`} className="flex items-center justify-start gap-2">
+                    <img 
+                      className="img-fluid rounded-full size-8" 
+                      src={`https://assets.coincap.io/assets/icons/${moeda.symbol.toLowerCase()}@2x.png`} 
+                      alt="Logo da Moeda" 
+                      onError={(e)=>{
+                        e.currentTarget.src = '/icon-default.png'
+                      }}
+                    />
+                    {moeda.name}
+                  </Link>
                 </td>
                 <td data-label="Valor de Mercado">{moeda.marketCapUsd}</td>
                 <td data-label="Preço">{moeda.priceUsd}</td>

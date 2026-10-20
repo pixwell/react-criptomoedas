@@ -4,6 +4,8 @@ import { CoinDetail } from "./pages/coinDetail";
 import { PageNotFound } from "./pages/pageNotFound";
 import { Layout } from "./components/layout";
 
+const coinPath = '/coin';
+
 const router = createBrowserRouter([
   {
     Component: Layout,
@@ -13,7 +15,7 @@ const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: 'coin/:id',
+        path: `${coinPath}/:id`,
         Component: CoinDetail,
       },
       {
@@ -24,4 +26,4 @@ const router = createBrowserRouter([
   },
 ])
 
-export {router}
+export {router, coinPath}
