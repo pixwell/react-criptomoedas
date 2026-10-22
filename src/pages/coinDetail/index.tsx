@@ -40,7 +40,7 @@ export function CoinDetail() {
         <ul>
           <li className="coin-detail-section__list-item"><strong>Oferta circulante:</strong> 19,8 mi BTC</li>
           <li className="coin-detail-section__list-item"><strong>Oferta máxima:</strong> 21 mi BTC</li>
-          <li className="coin-detail-section__list-item"><strong>Explorador da blockchain</strong> <Link to="/">21 mi BTC <strong>↗</strong></Link></li>
+          <li className="coin-detail-section__list-item"><strong>Explorador da blockchain</strong> <Link to="/">21 mi BTC ↗</Link></li>
         </ul>
       </section>
 
