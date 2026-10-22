@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router";
 
 export function CoinDetail() {
   const [coin, setCoin] = useState()
 
   return (
     <main className="container-detail mb-8 text-zinc-400">
+      <Link to="/" className="block mb-8 text-center hover:text-white">	&#8592; Voltar para a lista</Link>
+
       <article className="rounded-lg bg-zinc-800 p-4 md:p-8">
         <header className="header-grid">
           <img
@@ -37,7 +40,7 @@ export function CoinDetail() {
         <ul>
           <li className="coin-detail-section__list-item"><strong>Oferta circulante:</strong> 19,8 mi BTC</li>
           <li className="coin-detail-section__list-item"><strong>Oferta máxima:</strong> 21 mi BTC</li>
-          <li className="coin-detail-section__list-item"><strong>Explorador da blockchain ↗</strong> 21 mi BTC</li>
+          <li className="coin-detail-section__list-item"><strong>Explorador da blockchain</strong> <Link to="/">21 mi BTC <strong>↗</strong></Link></li>
         </ul>
       </section>
 
