@@ -113,6 +113,10 @@
     @apply max-w-6xl mx-auto px-4;
   }
 
+  .container-detail { 
+    @apply max-w-4xl mx-auto px-4;
+  }
+
   .img-fluid{
     @apply max-w-full h-auto;
   }
