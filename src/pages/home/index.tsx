@@ -120,7 +120,11 @@ export function Home() {
             )
           ) : (
             <tr>
-              <td colSpan={5} className="text-center">Nenhuma moeda encontrada.</td>
+              <td colSpan={5}>
+                <div className="flex items-center justify-center min-h-40">
+                  {pageLoading ? (<img width="56" height="56" src={svgSpinner} alt="Carregando" role="status" aria-live="polite"  />) : ('Nenhuma moeda encontrada.')}
+                </div>
+              </td>
             </tr>
           )}
         </tbody>
