@@ -105,6 +105,73 @@
     text-center
   }
 
+  /* Header na pagina de detalhes da moeda - Grid e Estilizacao */
+  .header-grid{
+    @apply
+    md:grid md:grid-cols-[auto_1fr] md:gap-x-4
+    pb-8 mb-8
+
+    border-b border-b-zinc-700 
+  }
+
+  .header-grid__icon{
+    @apply
+    md:row-span-2
+    mx-auto mb-3 
+    md:mx-0 md:mb-0 
+
+    max-w-full h-auto
+    rounded-full 
+    size-16 
+  }
+
+  .header-grid__title{
+    @apply
+    md:self-end
+    mb-1 
+
+    text-3xl text-center md:text-left
+  }
+
+  .header-grid__ranking{
+    @apply 
+    md:self-start
+
+    text-center md:text-left
+  } 
+
+  .header-grid__price{
+    @apply 
+    md:col-span-2
+    mt-8 mb-0 
+
+    text-2xl text-center md:text-left 
+    font-bold 
+  } 
+
+  .header-grid__price-infos{
+    @apply 
+    md:col-span-2
+    
+    text-xs text-center md:text-left
+  } 
+
+  /* Secao na pagina de detalhes da moeda */
+  .coin-detail-section__title{
+    @apply
+    text-xl
+  }
+
+  .coin-detail-section__list-item{
+    @apply
+    md:flex 
+    md:items-center 
+    md:justify-between
+    py-3 
+
+    border-b border-b-zinc-700 
+  }
+
 }
 
 /* Classes customizados pontuais ================== */
