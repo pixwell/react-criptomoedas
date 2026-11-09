@@ -29,3 +29,8 @@ export interface CoinResponse{
   timestamp: number;
   data: Coin[]
 }
+
+export interface CoinDetailResponse{
+  timestamp: number;
+  data: Coin
+}
