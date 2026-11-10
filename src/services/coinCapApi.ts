@@ -23,7 +23,7 @@ export async function getCoins(offset: number = 0, signal?: AbortSignal): Promis
     const response = await fetch(getApiUrl('assets', ITEMS_PER_PAGE, offset), {signal});
     //Trata o erro 404, que nao e tratado nativamente
     if (!response.ok) {
-      throw new Error(`Erro HTTP: ${response.status}`);
+      throw new Error(`Erro HTTP ${response.status}`);
     }
     //Resposta convertida para JSON
     const data = await response.json();
@@ -33,7 +33,7 @@ export async function getCoins(offset: number = 0, signal?: AbortSignal): Promis
     
   } catch (error) {
     //Exibe o erro no console
-    console.error('Erro ao buscar lista: ', error);
+    console.error('Erro ao buscar lista. ', error);
     //Devolve o erro para quem o chamou, assim a interface pode tratar
     throw error;
   }
@@ -46,7 +46,7 @@ export async function getCoin(id: string): Promise<CoinDetailResponse>{
 
     //Trata o erro 404, que nao e tratado nativamente
     if (!response.ok) {
-      throw new Error(`Erro HTTP: ${response.status}`);
+      throw new Error(`Erro HTTP ${response.status}`);
     }
     
     //Resposta convertida para JSON
@@ -57,7 +57,7 @@ export async function getCoin(id: string): Promise<CoinDetailResponse>{
 
   } catch (error) {
     //Exibe o erro no console
-    console.error('Erro ao buscar moeda: ', error);
+    console.error('Erro ao buscar moeda. ', error);
     //Devolve o erro para quem o chamou, assim a interface pode tratar
     throw error;
   }
