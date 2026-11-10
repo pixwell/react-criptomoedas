@@ -1,8 +1,47 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
+import { getCoin } from "../../services/coinCapApi";
+import { LoadingSpinner } from "../../components/loadingSpinner";
+
 
 export function CoinDetail() {
-  const [coin, setCoin] = useState()
+  const [coin, setCoin] = useState();
+  const [pageLoading, setPageLoading] = useState(false);
+  const {id} = useParams();
+
+  useEffect(() => {
+    async function infosMoeda(){
+      if(!id){
+        return;
+      }
+
+      try {
+      //1. Ativa o Loading
+      setPageLoading(true);
+
+      //2. Busca os dados
+      const moeda = await getCoin(id);
+
+      console.log(moeda.data)
+
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(`Erro ao carregar o carro: ${error.message}`);
+        } else {
+          console.error("Erro desconhecido ao carregar o carro.");
+        }
+      } finally{
+        setPageLoading(false)
+      }
+    }
+
+    infosMoeda();
+
+  }, [id])
+
+  if (pageLoading) {
+    return <LoadingSpinner/>
+  }
 
   return (
     <main className="container-detail mb-8 text-zinc-400">
