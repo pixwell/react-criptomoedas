@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router";
 import { getCoin } from "../../services/coinCapApi";
 import { LoadingSpinner } from "../../components/loadingSpinner";
+import type { Coin } from "../../types/coin";
 
 
 export function CoinDetail() {
-  const [coin, setCoin] = useState();
+  const [coin, setCoin] = useState<Coin>();
   const [pageLoading, setPageLoading] = useState(false);
   const {id} = useParams();
 
@@ -22,7 +23,7 @@ export function CoinDetail() {
       //2. Busca os dados
       const moeda = await getCoin(id);
 
-      console.log(moeda.data)
+      setCoin(moeda.data)
 
       } catch (error) {
         if (error instanceof Error) {
