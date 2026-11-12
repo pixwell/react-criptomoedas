@@ -1,4 +1,5 @@
 import type { CoinResponse, CoinDetailResponse } from "../types/coin";
+import { ApiError } from "../errors/apiError";
 
 export const ITEMS_PER_PAGE = 10;
 
@@ -23,7 +24,7 @@ export async function getCoins(offset: number = 0, signal?: AbortSignal): Promis
     const response = await fetch(getApiUrl('assets', ITEMS_PER_PAGE, offset), {signal});
     //Trata o erro 404, que nao e tratado nativamente
     if (!response.ok) {
-      throw new Error(`Erro HTTP ${response.status}`);
+      throw new ApiError(`Erro HTTP ${response.status}`, response.status);
     }
     //Resposta convertida para JSON
     const data = await response.json();
@@ -46,7 +47,7 @@ export async function getCoin(id: string): Promise<CoinDetailResponse>{
 
     //Trata o erro 404, que nao e tratado nativamente
     if (!response.ok) {
-      throw new Error(`Erro HTTP ${response.status}`);
+      throw new ApiError(`Erro HTTP ${response.status}`, response.status);
     }
     
     //Resposta convertida para JSON
