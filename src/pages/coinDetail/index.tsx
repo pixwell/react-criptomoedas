@@ -111,7 +111,11 @@ export function CoinDetail() {
           </li>
           <li className="coin-detail-section__list-item">
             <strong>Oferta máxima:</strong>
-            {`${formatPriceCompact(Number(coin.maxSupply))} ${coin.symbol}`}
+            {coin.maxSupply ? (
+              `${formatPriceCompact(Number(coin.maxSupply))} ${coin.symbol}`
+            ) : (
+              `---`
+            )}
           </li>
           <li className="coin-detail-section__list-item">
             <strong>Explorador da blockchain ↗</strong>
