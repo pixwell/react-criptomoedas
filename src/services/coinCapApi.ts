@@ -18,6 +18,10 @@ function getApiUrl(endpoint: string = 'assets', limitParam?: number, offsetParam
   return `https://rest.coincap.io/v3/${endpoint}?${urlArgs.join('&')}`;
 }
 
+export function getCoinIcon(symbol: string): string{
+  return `https://assets.coincap.io/assets/icons/${symbol.toLowerCase()}@2x.png`
+}
+
 export async function getCoins(offset: number = 0, signal?: AbortSignal): Promise<CoinResponse>{
   try {
     //Requisicao inicial
