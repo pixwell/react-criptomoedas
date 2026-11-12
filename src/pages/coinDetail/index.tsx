@@ -25,8 +25,8 @@ export function CoinDetail() {
 
       //2. Busca os dados
       const moeda = await getCoin(id);
-
-      console.log(moeda.data)
+      
+      //3. Atualiza o estado
       setCoin(moeda.data)
 
       } catch (error) {
