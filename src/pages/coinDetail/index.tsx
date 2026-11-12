@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router";
-import { getCoin } from "../../services/coinCapApi";
+import { getCoin, getCoinIcon } from "../../services/coinCapApi";
 import { LoadingSpinner } from "../../components/loadingSpinner";
 import type { Coin } from "../../types/coin";
+import { ApiError } from "../../errors/apiError";
 
 
 export function CoinDetail() {
   const [coin, setCoin] = useState<Coin>();
-  const [pageLoading, setPageLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState<boolean>(false);
+  const [coinNotFound, setCoinNotFound] = useState<boolean>(false)
   const {id} = useParams();
 
   useEffect(() => {
@@ -26,11 +28,14 @@ export function CoinDetail() {
       setCoin(moeda.data)
 
       } catch (error) {
-        if (error instanceof Error) {
-          console.error(`Erro ao carregar o carro: ${error.message}`);
+        if (error instanceof ApiError) {
+          console.error(error.message);
         } else {
-          console.error("Erro desconhecido ao carregar o carro.");
+          console.error("Erro desconhecido.");
         }
+
+        setCoinNotFound(true)
+
       } finally{
         setPageLoading(false)
       }
@@ -40,8 +45,23 @@ export function CoinDetail() {
 
   }, [id])
 
+  //Carregando
   if (pageLoading) {
     return <LoadingSpinner/>
+  }
+
+  //Moeda nao encontrada ou estado vazio
+  if (coinNotFound || !coin) {
+    return(
+      <main className="container-detail mb-8 text-zinc-400">
+        <Link to="/" className="block mb-8 text-center hover:text-white">	&#8592; Voltar para a lista</Link>
+
+        <article className="rounded-lg bg-zinc-800 p-4 md:p-8">
+          <h1 className="text-center text-4xl">Erro 404</h1>
+          <p className="text-center">Moeda não encontrada. :'(</p>
+        </article>
+      </main>
+    )
   }
 
   return (
@@ -52,7 +72,7 @@ export function CoinDetail() {
         <header className="header-grid">
           <img
             className="header-grid__icon"
-            src={`https://assets.coincap.io/assets/icons/btc@2x.png`}
+            src={getCoinIcon(coin.symbol)}
             alt="Logo da Moeda"
             onError={(e) => {
               e.currentTarget.src = '/icon-default.png'
