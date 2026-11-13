@@ -99,7 +99,7 @@ export function CoinDetail() {
           <li className="coin-detail-section__list-item">
             <strong>Variação (24h):</strong> 
             <span className={Number(coin.changePercent24Hr) > 0 ? 'text-green-500' : 'text-red-500' }>
-              {(Number(coin.changePercent24Hr)).toFixed(3)} {Number(coin.changePercent24Hr) > 0 ? '▲' : '▼'}
+              {(Number(coin.changePercent24Hr)).toFixed(3)}% {Number(coin.changePercent24Hr) > 0 ? '▲' : '▼'}
             </span>
           </li>
           <li className="coin-detail-section__list-item"><strong>Preço médio (VWAP 24h):</strong> {formatPrice(Number(coin.vwap24Hr))}</li>
@@ -123,7 +123,7 @@ export function CoinDetail() {
           </li>
           <li className="coin-detail-section__list-item">
             <strong>Explorador da blockchain ↗</strong>
-            <Link to={coin.explorer}>{coin.explorer}</Link>
+            <a href={coin.explorer} target="__blank" rel="noopener noreferrer nofollow">{coin.explorer}</a>
           </li>
         </ul>
       </section>
