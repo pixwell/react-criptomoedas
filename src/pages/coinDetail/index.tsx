@@ -19,6 +19,10 @@ export function CoinDetail() {
         return;
       }
 
+      //Reinicializa os estados
+      setCoinNotFound(false);
+      setCoin(undefined)
+
       try {
       //1. Ativa o Loading
       setPageLoading(true);
