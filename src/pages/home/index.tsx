@@ -113,7 +113,7 @@ export function Home() {
                 <td data-label="Preço">{moeda.priceUsd}</td>
                 <td data-label="Volume">{moeda.volumeUsd24Hr}</td>
                 <td data-label="Mudança 24h" className={Number(moeda.changePercent24Hr) > 0 ? 'text-green-500' : 'text-red-500' }>
-                  {moeda.changePercent24Hr}
+                  {moeda.changePercent24Hr}%
                 </td>
               </tr>
             )
