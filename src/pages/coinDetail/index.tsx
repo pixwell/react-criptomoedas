@@ -4,7 +4,7 @@ import { getCoin, getCoinIcon } from "../../services/coinCapApi";
 import { LoadingSpinner } from "../../components/loadingSpinner";
 import type { Coin } from "../../types/coin";
 import { ApiError } from "../../errors/apiError";
-import { formatPrice, formatPriceCompact } from "../../utils/formatters";
+import { formatNumberCompact, formatPrice, formatPriceCompact } from "../../utils/formatters";
 
 
 export function CoinDetail() {
@@ -111,12 +111,12 @@ export function CoinDetail() {
         <ul>
           <li className="coin-detail-section__list-item">
             <strong>Oferta circulante:</strong>
-            {`${formatPriceCompact(Number(coin.supply))} ${coin.symbol}`}
+            {`${formatNumberCompact(Number(coin.supply))} ${coin.symbol}`}
           </li>
           <li className="coin-detail-section__list-item">
             <strong>Oferta máxima:</strong>
             {coin.maxSupply ? (
-              `${formatPriceCompact(Number(coin.maxSupply))} ${coin.symbol}`
+              `${formatNumberCompact(Number(coin.maxSupply))} ${coin.symbol}`
             ) : (
               `---`
             )}
