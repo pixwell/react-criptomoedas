@@ -17,3 +17,12 @@ export function formatPriceCompact(value: number): string{
 
     return formattedValue;
 }
+
+export function formatNumberCompact(value: number): string{
+    const formattedValue = Intl.NumberFormat('en-US', {
+        notation: 'compact',
+        compactDisplay: 'short' // short ou 'long' para por extenso (ex: "milhão")
+    }).format(value)
+
+    return formattedValue;
+}
