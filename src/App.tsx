@@ -3,6 +3,7 @@ import { Home } from "./pages/home";
 import { CoinDetail } from "./pages/coinDetail";
 import { PageNotFound } from "./pages/pageNotFound";
 import { Layout } from "./components/layout";
+import { SearchResults } from "./pages/serchResults";
 
 const coinPath = '/coin';
 
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: `${coinPath}/:id`,
         Component: CoinDetail,
+      },
+      {
+        path: '/search',
+        Component: SearchResults,
       },
       {
         path: '*',
