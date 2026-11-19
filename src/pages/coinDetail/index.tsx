@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 import { getCoin, getCoinIcon } from "../../services/coinCapApi";
 import { LoadingSpinner } from "../../components/loadingSpinner";
 import type { Coin } from "../../types/coin";
