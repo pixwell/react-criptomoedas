@@ -59,9 +59,7 @@ export function CoinDetail() {
   //Moeda nao encontrada ou estado vazio
   if (coinNotFound || !coin) {
     return(
-      <main className="container-detail mb-8 text-zinc-400">
-        <Link to="/" className="block mb-8 text-center hover:text-white">	&#8592; Voltar para a lista</Link>
-
+      <main className="container-detail mb-8 text-zinc-400">        
         <article className="rounded-lg bg-zinc-800 p-4 md:p-8">
           <h1 className="text-center text-4xl">Erro 404</h1>
           <p className="text-center">Moeda não encontrada. :'(</p>
@@ -72,8 +70,6 @@ export function CoinDetail() {
 
   return (
     <main className="container-detail mb-8 text-zinc-400">
-      <Link to="/" className="block mb-8 text-center hover:text-white">	&#8592; Voltar para a lista</Link>
-
       <article className="rounded-lg bg-zinc-800 p-4 md:p-8">
         <header className="header-grid">
           <img
