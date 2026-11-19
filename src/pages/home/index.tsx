@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { coinPath } from "../../App";
 import { FaSearch } from "react-icons/fa";
 import toast from "react-hot-toast";
 import svgSpinner from '../../assets/spinner.svg';
@@ -7,6 +6,7 @@ import { ITEMS_PER_PAGE, getCoins } from "../../services/coinCapApi";
 import type { Coin, FormattedCoin } from "../../types/coin";
 import { formatPrice, formatPriceCompact } from "../../utils/formatters";
 import { Form, Link } from "react-router";
+import { ROUTES } from "../../routes/route-list";
 
 export function Home() {
   const [coins, setCoins] = useState<FormattedCoin[]>([]);
@@ -75,7 +75,7 @@ export function Home() {
   return (
     <div className="container">
 
-      <Form method="get" action="/search" className="flex justify-between items-center gap-6 mb-10">
+      <Form method="get" action={searchPath} className="flex justify-between items-center gap-6 mb-10">
         <input type="text" name="query" placeholder="Digite o nome da moeda. Ex.: Bitcoin" className="bg-white text-zinc-500 w-full rounded-md px-4 py-2" />
         <button type="submit">
           <FaSearch size={28} color="#E4E4E7" />
@@ -97,7 +97,7 @@ export function Home() {
             coins.map(moeda => (
               <tr key={moeda.id}>
                 <td data-label="Moeda">
-                  <Link to={`${coinPath}/${moeda.id}`} className="flex items-center justify-start gap-2">
+                  <Link to={ROUTES.coinDetail.link(moeda.id)} className="flex items-center justify-start gap-2">
                     <img 
                       className="img-fluid rounded-full size-8" 
                       src={`https://assets.coincap.io/assets/icons/${moeda.symbol.toLowerCase()}@2x.png`} 
