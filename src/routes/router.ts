@@ -3,8 +3,8 @@ import { Home } from "../pages/home";
 import { CoinDetail } from "../pages/coinDetail";
 import { PageNotFound } from "../pages/pageNotFound";
 import { Layout } from "../components/layout";
-import { SearchResults } from "../pages/serchResults";
-import { ROUTES } from "../routes/route-list";
+import { SearchResults } from "../pages/searchResults";
+import { ROUTES } from "./route-list";
 
 const router = createBrowserRouter([
   {
