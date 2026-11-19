@@ -1,7 +1,7 @@
 export const ROUTES = {
-    searchResults: 'search',
+    searchResults: '/search',
     coinDetail: {
-        path: 'coin/:id',
-        link: (id: string) => `coin/${id}` 
+        path: '/coin/:id',
+        link: (id: string) => `/coin/${id}` 
     }
 }
