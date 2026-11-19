@@ -6,6 +6,7 @@ import { Layout } from "./components/layout";
 import { SearchResults } from "./pages/serchResults";
 
 const coinPath = '/coin';
+const searchPath = '/search';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
         Component: CoinDetail,
       },
       {
-        path: '/search',
+        path: searchPath,
         Component: SearchResults,
       },
       {
@@ -31,4 +32,4 @@ const router = createBrowserRouter([
   },
 ])
 
-export {router, coinPath}
+export {router, coinPath, searchPath}
