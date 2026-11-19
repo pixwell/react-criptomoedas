@@ -30,4 +30,4 @@ const router = createBrowserRouter([
   },
 ])
 
-export {router, coinPath, searchPath}
+export {router}
