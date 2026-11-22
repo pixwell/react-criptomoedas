@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import toast from "react-hot-toast";
 import svgSpinner from '../../assets/spinner.svg';
 import { getCoins } from "../../services/coinCapApi";
-import { ITEMS_PER_PAGE } from "../../constants";
+import { ITEMS_PER_PAGE, SEARCHFIELD_FIELDNAME } from "../../constants";
 import type { Coin, FormattedCoin } from "../../types/coin";
 import { formatPrice, formatPriceCompact } from "../../utils/formatters";
 import { Form, Link } from "react-router";
@@ -77,7 +77,7 @@ export function Home() {
     <div className="container">
 
       <Form method="get" action={ROUTES.searchResults} className="flex justify-between items-center gap-6 mb-10">
-        <input type="text" name="query" placeholder="Digite o nome da moeda. Ex.: Bitcoin" className="bg-white text-zinc-500 w-full rounded-md px-4 py-2" />
+        <input type="text" name={SEARCHFIELD_FIELDNAME} placeholder="Digite o nome da moeda. Ex.: Bitcoin" className="bg-white text-zinc-500 w-full rounded-md px-4 py-2" />
         <button type="submit">
           <FaSearch size={28} color="#E4E4E7" />
         </button>
