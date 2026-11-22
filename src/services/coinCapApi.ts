@@ -1,4 +1,4 @@
-import type { CoinResponse, CoinDetailResponse } from "../types/coin";
+import type { CoinResponse, CoinDetailResponse, CoinSearchResponse } from "../types/coin";
 import { ApiError } from "../errors/apiError";
 import { ITEMS_PER_PAGE } from "../constants";
 
@@ -70,6 +70,29 @@ export async function getCoin(id: string): Promise<CoinDetailResponse>{
   } catch (error) {
     //Exibe o erro no console
     console.error('Erro ao buscar moeda. ', error);
+    //Devolve o erro para quem o chamou, assim a interface pode tratar
+    throw error;
+  }
+}
+
+export async function searchCoins(search: string, offset: number = 0, signal?: AbortSignal): Promise<CoinSearchResponse>{
+  try {
+    //Requisicao inicial
+    const response = await fetch(getApiUrl({endpoint: 'agentFriendly/assets_search', search, offset, limit: ITEMS_PER_PAGE}), {signal});
+    
+    //Trata o erro 404, que nao e tratado nativamente
+    if (!response.ok) {
+      throw new ApiError(`Erro HTTP ${response.status}`, response.status);
+    }
+    //Resposta convertida para JSON
+    const data = await response.json();
+
+    //Tooooma a lista!
+    return data;
+    
+  } catch (error) {
+    //Exibe o erro no console
+    console.error('Erro ao pesquisar moeda. ', error);
     //Devolve o erro para quem o chamou, assim a interface pode tratar
     throw error;
   }
