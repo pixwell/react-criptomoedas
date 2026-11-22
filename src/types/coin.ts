@@ -15,6 +15,16 @@ export interface Coin{
   frozenAt: number;
 }
 
+export interface CoinSearch{
+  slug: string;
+  price: string;
+  volume: string;
+  symbol: string;
+  name: string;
+  marketCap: string;
+  changePercent24Hr: string
+}
+
 export interface FormattedCoin{
   id: string;
   symbol: string;
@@ -33,4 +43,14 @@ export interface CoinResponse{
 export interface CoinDetailResponse{
   timestamp: number;
   data: Coin
+}
+
+export interface CoinSearchResponse{
+  timestamp: number;
+  data: CoinSearch[];
+  pagination: {
+    total: number,
+    limit: number,
+    offset: number
+  }
 }
