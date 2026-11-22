@@ -1,7 +1,6 @@
 import type { CoinResponse, CoinDetailResponse } from "../types/coin";
 import { ApiError } from "../errors/apiError";
-
-export const ITEMS_PER_PAGE = 10;
+import { ITEMS_PER_PAGE } from "../constants";
 
 function getApiUrl(endpoint: string = 'assets', limitParam?: number, offsetParam?: number): string{
   //Argumentos da URL
