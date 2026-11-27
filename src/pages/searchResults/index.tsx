@@ -1,11 +1,12 @@
 import { Link, useSearchParams } from "react-router";
-import { SEARCH_FIELD_NAME } from "../../constants";
+import { ITEMS_PER_PAGE, SEARCH_FIELD_NAME } from "../../constants";
 import { useEffect, useState } from "react";
 import { searchCoins } from "../../services/coinCapApi";
 import toast from "react-hot-toast";
 import type { CoinSearch } from "../../types/coin";
 import { formatPrice, formatPriceCompact } from "../../utils/formatters";
 import { LoadingSpinner } from "../../components/loadingSpinner";
+import svgSpinner from '../../assets/spinner.svg';
 import { ROUTES } from "../../routes/route-list";
 
 export function SearchResults() {
@@ -55,10 +56,8 @@ export function SearchResults() {
                 //3. Formata para a apresentacao
                 const formattedList = formatCoins(lista.data);
 
-                setCoinsResult(formattedList);
-
                 //4. Atualiza para o estado
-                //setCoins( prevCoins => [...prevCoins, ...formattedList]);
+                setCoinsResult( prevCoins => [...prevCoins, ...formattedList]);
                 
             } catch (error) {
                 
@@ -81,12 +80,7 @@ export function SearchResults() {
 
         return () => controller.abort()
 
-    }, [searchTerm])
-
-    //Carregando
-    if (pageLoading) {
-        return <LoadingSpinner/>
-    }
+    }, [searchTerm, offset])
 
     return (
         <main className="container">
@@ -131,7 +125,9 @@ export function SearchResults() {
                         ) : (
                             <tr>
                                 <td colSpan={5}>
-                                    'Nenhuma moeda encontrada.'
+                                    <div className="flex items-center justify-center min-h-40">
+                                        {pageLoading ? (<img width="56" height="56" src={svgSpinner} alt="Carregando" role="status" aria-live="polite"  />) : ('Nenhuma moeda encontrada.')}
+                                    </div>
                                 </td>
                             </tr>
                         )}
@@ -139,6 +135,16 @@ export function SearchResults() {
                         
                     </tbody>
                 </table>
+                {coinsResult.length > 0 && (
+                    <button 
+                    type="button" 
+                    className="btn bg-blue-700 hover:bg-blue-600 mx-auto mt-4 mb-8" 
+                    onClick={() => setOffset(prevOffset => prevOffset + ITEMS_PER_PAGE)}
+                    disabled={pageLoading}
+                    >          
+                    {pageLoading ? (<img width="18" height="18" src={svgSpinner} alt="Carregando" role="status" aria-live="polite" />) : ('Carregar mais ...')}
+                    </button>
+                )}
             </article>
         </main>
     )
