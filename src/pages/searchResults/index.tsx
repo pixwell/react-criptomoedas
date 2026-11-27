@@ -1,10 +1,12 @@
-import { useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { SEARCH_FIELD_NAME } from "../../constants";
 import { useEffect, useState } from "react";
 import { searchCoins } from "../../services/coinCapApi";
 import toast from "react-hot-toast";
 import type { CoinSearch } from "../../types/coin";
 import { formatPrice, formatPriceCompact } from "../../utils/formatters";
+import { LoadingSpinner } from "../../components/loadingSpinner";
+import { ROUTES } from "../../routes/route-list";
 
 export function SearchResults() {
     const [coinsResult, setCoinsResult] = useState<CoinSearch[]>([]);
@@ -81,9 +83,15 @@ export function SearchResults() {
 
     }, [searchTerm])
 
+    //Carregando
+    if (pageLoading) {
+        return <LoadingSpinner/>
+    }
+
     return (
         <main className="container">
             <article>
+                <h2 className="text-center text-xl font-normal p-2 mb-5 bg-zinc-700 text-zinc-400 rounded-lg">Resultado da busca por: <span className="font-bold text-white">{searchTerm}</span></h2>
                 <table className="coin-responsive-table">
                     <thead>
                         <tr>
@@ -95,11 +103,40 @@ export function SearchResults() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td colSpan={5}>
-                                {searchParam.get(SEARCH_FIELD_NAME)}
-                            </td>
-                        </tr>
+
+                        {coinsResult.length > 0 ? (
+                            coinsResult.map(moeda => (
+                                <tr key={moeda.slug}>
+                                    <td data-label="Moeda">
+                                        <Link to={ROUTES.coinDetail.link(moeda.slug)} className="flex items-center justify-start gap-2">
+                                            <img 
+                                            className="img-fluid rounded-full size-8" 
+                                            src={`https://assets.coincap.io/assets/icons/${moeda.symbol.toLowerCase()}@2x.png`} 
+                                            alt="Logo da Moeda" 
+                                            onError={(e)=>{
+                                                e.currentTarget.src = '/icon-default.png'
+                                            }}
+                                            />
+                                            {moeda.name}
+                                        </Link>
+                                    </td>
+                                    <td data-label="Valor de Mercado">{moeda.marketCap}</td>
+                                    <td data-label="Preço">{moeda.price}</td>
+                                    <td data-label="Volume">{moeda.volume}</td>
+                                    <td data-label="Mudança 24h" className={Number(moeda.changePercent24Hr) > 0 ? 'text-green-500' : 'text-red-500' }>
+                                    {moeda.changePercent24Hr}%
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={5}>
+                                    'Nenhuma moeda encontrada.'
+                                </td>
+                            </tr>
+                        )}
+
+                        
                     </tbody>
                 </table>
             </article>
