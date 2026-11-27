@@ -5,7 +5,6 @@ import { searchCoins } from "../../services/coinCapApi";
 import toast from "react-hot-toast";
 import type { CoinSearch } from "../../types/coin";
 import { formatPrice, formatPriceCompact } from "../../utils/formatters";
-import { LoadingSpinner } from "../../components/loadingSpinner";
 import svgSpinner from '../../assets/spinner.svg';
 import { ROUTES } from "../../routes/route-list";
 
@@ -13,6 +12,7 @@ export function SearchResults() {
     const [coinsResult, setCoinsResult] = useState<CoinSearch[]>([]);
     const [pageLoading, setPageLoading] = useState(false);
     const [offset, setOffset] = useState(0);
+    const [coinsTotalResult, setCoinsTotalResult] = useState(0);
 
     const [searchParam] = useSearchParams();
     //query e o nome do campo de busca
@@ -53,11 +53,20 @@ export function SearchResults() {
                 //2. Busca os dados
                 const lista = await searchCoins(searchTerm, offset, signal);
 
-                //3. Formata para a apresentacao
+                //3. Atualiza o estado com o total de resultados encontrados
+                setCoinsTotalResult(lista.pagination.total)
+
+                //4. Formata para a apresentacao
                 const formattedList = formatCoins(lista.data);
 
-                //4. Atualiza para o estado
+                //5. Atualiza o estado com a lista de moedas
                 setCoinsResult( prevCoins => [...prevCoins, ...formattedList]);
+
+                console.log(coinsResult.length)
+                console.log('---')
+                console.log(coinsTotalResult)
+                console.log('---')
+                console.log(coinsResult.length === coinsTotalResult)
                 
             } catch (error) {
                 
@@ -138,9 +147,10 @@ export function SearchResults() {
                 {coinsResult.length > 0 && (
                     <button 
                     type="button" 
-                    className="btn bg-blue-700 hover:bg-blue-600 mx-auto mt-4 mb-8" 
+                    //className="btn bg-blue-700 hover:bg-blue-600 mx-auto mt-4 mb-8" 
+                    className={`btn mx-auto mt-4 mb-8 ${coinsResult.length === coinsTotalResult ? 'bg-blue-400 cursor-not-allowed hover:scale-100': 'bg-blue-700 hover:bg-blue-600'}`} 
                     onClick={() => setOffset(prevOffset => prevOffset + ITEMS_PER_PAGE)}
-                    disabled={pageLoading}
+                    disabled={coinsResult.length === coinsTotalResult}
                     >          
                     {pageLoading ? (<img width="18" height="18" src={svgSpinner} alt="Carregando" role="status" aria-live="polite" />) : ('Carregar mais ...')}
                     </button>
