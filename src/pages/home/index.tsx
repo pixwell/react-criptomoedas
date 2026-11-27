@@ -96,28 +96,28 @@ export function Home() {
         <tbody>
           {coins.length > 0 ? (
             coins.map(moeda => (
-              <tr key={moeda.id}>
-                <td data-label="Moeda">
-                  <Link to={ROUTES.coinDetail.link(moeda.id)} className="flex items-center justify-start gap-2">
-                    <img 
-                      className="img-fluid rounded-full size-8" 
-                      src={`https://assets.coincap.io/assets/icons/${moeda.symbol.toLowerCase()}@2x.png`} 
-                      alt="Logo da Moeda" 
-                      onError={(e)=>{
-                        e.currentTarget.src = '/icon-default.png'
-                      }}
-                    />
-                    {moeda.name}
-                  </Link>
-                </td>
-                <td data-label="Valor de Mercado">{moeda.marketCapUsd}</td>
-                <td data-label="Preço">{moeda.priceUsd}</td>
-                <td data-label="Volume">{moeda.volumeUsd24Hr}</td>
-                <td data-label="Mudança 24h" className={Number(moeda.changePercent24Hr) > 0 ? 'text-green-500' : 'text-red-500' }>
-                  {moeda.changePercent24Hr}%
-                </td>
-              </tr>
-            )
+                <tr key={moeda.id}>
+                  <td data-label="Moeda">
+                    <Link to={ROUTES.coinDetail.link(moeda.id)} className="flex items-center justify-start gap-2">
+                      <img 
+                        className="img-fluid rounded-full size-8" 
+                        src={`https://assets.coincap.io/assets/icons/${moeda.symbol.toLowerCase()}@2x.png`} 
+                        alt="Logo da Moeda" 
+                        onError={(e)=>{
+                          e.currentTarget.src = '/icon-default.png'
+                        }}
+                      />
+                      {moeda.name}
+                    </Link>
+                  </td>
+                  <td data-label="Valor de Mercado">{moeda.marketCapUsd}</td>
+                  <td data-label="Preço">{moeda.priceUsd}</td>
+                  <td data-label="Volume">{moeda.volumeUsd24Hr}</td>
+                  <td data-label="Mudança 24h" className={Number(moeda.changePercent24Hr) > 0 ? 'text-green-500' : 'text-red-500' }>
+                    {moeda.changePercent24Hr}%
+                  </td>
+                </tr>
+              )
             )
           ) : (
             <tr>
