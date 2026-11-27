@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router";
-import { SEARCHFIELD_FIELDNAME } from "../../constants";
+import { SEARCH_FIELD_NAME } from "../../constants";
 import { useEffect, useState } from "react";
 import { searchCoins } from "../../services/coinCapApi";
 import toast from "react-hot-toast";
@@ -13,7 +13,7 @@ export function SearchResults() {
 
     const [searchParam] = useSearchParams();
     //query e o nome do campo de busca
-    const searchTerm = searchParam.get(SEARCHFIELD_FIELDNAME);
+    const searchTerm = searchParam.get(SEARCH_FIELD_NAME);
 
     //Formata os valores da moeda para a interface
     function formatCoins(coinList: CoinSearch[]): CoinSearch[]{
@@ -97,7 +97,7 @@ export function SearchResults() {
                     <tbody>
                         <tr>
                             <td colSpan={5}>
-                                {searchParam.get(SEARCHFIELD_FIELDNAME)}
+                                {searchParam.get(SEARCH_FIELD_NAME)}
                             </td>
                         </tr>
                     </tbody>

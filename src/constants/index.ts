@@ -1,2 +1,2 @@
 export const ITEMS_PER_PAGE = 10;
-export const SEARCHFIELD_FIELDNAME = 'query';
+export const SEARCH_FIELD_NAME = 'query';
