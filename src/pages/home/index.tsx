@@ -77,7 +77,7 @@ export function Home() {
     <div className="container">
 
       <Form method="get" action={ROUTES.searchResults} className="flex justify-between items-center gap-6 mb-10">
-        <input type="text" name={SEARCH_FIELD_NAME} placeholder="Digite o nome da moeda. Ex.: Bitcoin" className="bg-white text-zinc-500 w-full rounded-md px-4 py-2" />
+        <input type="text" name={SEARCH_FIELD_NAME} placeholder="Digite o nome da moeda. Ex.: Bitcoin" className="bg-white text-zinc-500 w-full rounded-md px-4 py-2" required />
         <button type="submit">
           <FaSearch size={28} color="#E4E4E7" />
         </button>
