@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router";
+import { Link, useNavigate, useSearchParams } from "react-router";
 import { ITEMS_PER_PAGE, SEARCH_FIELD_NAME } from "../../constants";
 import { useEffect, useState } from "react";
 import { searchCoins } from "../../services/coinCapApi";
@@ -13,6 +13,7 @@ export function SearchResults() {
     const [pageLoading, setPageLoading] = useState(false);
     const [offset, setOffset] = useState(0);
     const [coinsTotalResult, setCoinsTotalResult] = useState(0);
+    const navigate = useNavigate();
 
     const [searchParam] = useSearchParams();
     //query e o nome do campo de busca
@@ -34,6 +35,12 @@ export function SearchResults() {
 
         return list;
     }
+
+    useEffect(() => {
+        if (!searchTerm?.trim()) {
+            navigate('/', { replace: true });
+        }
+    }, [searchTerm, navigate]);
 
     useEffect(() => {
         const controller = new AbortController();
