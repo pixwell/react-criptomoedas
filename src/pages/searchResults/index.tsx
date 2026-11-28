@@ -60,13 +60,7 @@ export function SearchResults() {
                 const formattedList = formatCoins(lista.data);
 
                 //5. Atualiza o estado com a lista de moedas
-                setCoinsResult( prevCoins => [...prevCoins, ...formattedList]);
-
-                console.log(coinsResult.length)
-                console.log('---')
-                console.log(coinsTotalResult)
-                console.log('---')
-                console.log(coinsResult.length === coinsTotalResult)
+                setCoinsResult( prevCoins => [...prevCoins, ...formattedList]);                
                 
             } catch (error) {
                 
@@ -143,17 +137,21 @@ export function SearchResults() {
 
                         
                     </tbody>
-                </table>
+                </table>                
+
                 {coinsResult.length > 0 && (
-                    <button 
-                    type="button" 
-                    //className="btn bg-blue-700 hover:bg-blue-600 mx-auto mt-4 mb-8" 
-                    className={`btn mx-auto mt-4 mb-8 ${coinsResult.length === coinsTotalResult ? 'bg-blue-400 cursor-not-allowed hover:scale-100': 'bg-blue-700 hover:bg-blue-600'}`} 
-                    onClick={() => setOffset(prevOffset => prevOffset + ITEMS_PER_PAGE)}
-                    disabled={coinsResult.length === coinsTotalResult}
-                    >          
-                    {pageLoading ? (<img width="18" height="18" src={svgSpinner} alt="Carregando" role="status" aria-live="polite" />) : ('Carregar mais ...')}
-                    </button>
+                    <div>
+                        <p className="text-center py-3">{coinsResult.length} itens de {coinsTotalResult}</p>
+
+                        <button 
+                        type="button" 
+                        className={`btn mx-auto mt-4 mb-8 ${coinsResult.length === coinsTotalResult ? 'bg-blue-400 cursor-not-allowed hover:scale-100': 'bg-blue-700 hover:bg-blue-600'}`} 
+                        onClick={() => setOffset(prevOffset => prevOffset + ITEMS_PER_PAGE)}
+                        disabled={coinsResult.length === coinsTotalResult}
+                        >          
+                        {pageLoading ? (<img width="18" height="18" src={svgSpinner} alt="Carregando" role="status" aria-live="polite" />) : ('Carregar mais ...')}
+                        </button>
+                    </div>
                 )}
             </article>
         </main>
