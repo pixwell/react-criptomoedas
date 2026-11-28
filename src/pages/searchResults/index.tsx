@@ -36,6 +36,7 @@ export function SearchResults() {
         return list;
     }
 
+    //Se o termo de busca nao existir ou estiver vazio, redirecionar para a Home
     useEffect(() => {
         if (!searchTerm?.trim()) {
             navigate('/', { replace: true });
