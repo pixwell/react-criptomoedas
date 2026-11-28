@@ -54,6 +54,11 @@ export function SearchResults() {
                 return;
             }
 
+            //Reset dos estados
+            setCoinsResult([]);
+            setCoinsTotalResult(0);
+            setOffset(0);
+
             try {
                 //1. Ativa o Loading
                 setPageLoading(true);
@@ -155,7 +160,7 @@ export function SearchResults() {
                         type="button" 
                         className={`btn mx-auto mt-4 mb-8 ${coinsResult.length === coinsTotalResult ? 'bg-blue-400 cursor-not-allowed hover:scale-100': 'bg-blue-700 hover:bg-blue-600'}`} 
                         onClick={() => setOffset(prevOffset => prevOffset + ITEMS_PER_PAGE)}
-                        disabled={coinsResult.length === coinsTotalResult}
+                        disabled={(coinsResult.length === coinsTotalResult) || pageLoading}
                         >          
                         {pageLoading ? (<img width="18" height="18" src={svgSpinner} alt="Carregando" role="status" aria-live="polite" />) : ('Carregar mais ...')}
                         </button>
